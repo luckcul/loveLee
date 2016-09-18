@@ -1,1 +1,53 @@
-<h1> hello,  Lee!</h1>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title></title>
+  <script type="text/javascript">
+  
+  function getTime(){
+  	var nowDate = new Date();
+  	var startDate = new Date();
+
+  	startDate.setFullYear(2016);
+	startDate.setMonth(4); 
+	startDate.setDate(19);
+	startDate.setHours(20);
+	startDate.setMinutes(0);
+	startDate.setSeconds(0);
+
+
+	var interval = new Date();
+	interval = nowDate.getTime() - startDate.getTime(); 
+	interval /= 1000;
+	var days = Math.floor(interval / (24*3600));
+	interval = interval - days*24*3600;
+	var interval1 = interval
+	var hours = Math.floor(interval / 3600);
+	interval = interval - hours*3600;
+	var minutes = Math.floor(interval / (60));
+	interval = interval - minutes*60;
+	var seconds = Math.floor(interval );
+	// document.getElementById("now").innerHTML=startDate;
+  	document.getElementById("clock").innerHTML= ' 我们在一起 ' + days + ' 天 ' + hours + ' 小时 ' + minutes + ' 分钟 ' + seconds + ' 秒';
+  }
+  window.setInterval("getTime()", 1000);
+  </script>
+  <style type="text/css">
+  body {
+   position: absolute;
+  left: 35%;
+  top: 20%;
+  /*margin : 0.25in;*/
+}
+</style>
+</head>
+<body>
+
+<div id = "clock"> </div>
+<script type="text/javascript">
+getTime();
+</script>
+</body>
+</html>
