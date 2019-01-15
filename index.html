@@ -35,34 +35,84 @@
   }
   window.setInterval("getTime()", 1000);
   </script>
+	<script src="js/echarts.min.js"></script>
   <style type="text/css">
-  div#clock {
-margin: 0;
-  	line-height: 600px;
-  text-align:center;
+	div#clock {
+	margin: 0;
+	line-height: 40vh;
+	text-align:center;
 
-  height: 600px;
-  font-size: 30px;
-  /*background-color: #ccc;*/
-  font-family: Cursive;
-
-/*  	margin: auto; 
-   text-align:center; 
-   vertical-align: center;
-   position: absolute;
-  left: 25%;
-  top: 20%;
-  font-size: 30px;
-  margin : 0.25in;*/
-}
+	height: 600px;
+	font-size: 30px;
+	/* top:15vh; */
+	/*background-color: #ccc;*/
+	font-family: Cursive;
+	}
 </style>
 </head>
+
 <body>
 <!-- <embed src="http://url.mcvmc.com/xiami.php/1774078768.mp3" hidden="true" autostart="true" loop="true"> -->
-<audio src="http://url.527578.com/ttdt.php/21933221.mp3" hidden="true" autoplay="true" loop="loop"></audio>
+<!-- <audio src="http://url.527578.com/ttdt.php/21933221.mp3" hidden="true" autoplay="true" loop="loop"></audio> -->
 <div id = "clock">   </div>
+<div id="main1" style="width: 30vw;height:30vw;position: absolute;left:35vw;top:30vh;"></div>
+
 <script type="text/javascript">
 getTime();
+
+function f(x, a) {
+            return Math.pow(Math.pow(x, 2),1.0/3) + Math.sin(a*Math.PI*x)*0.9*Math.pow((3.3-Math.pow(x,2)),0.5); 
+        }
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main1'));
+
+        option = {
+            xAxis: {
+                show: false,
+                type: 'value'
+            },
+            yAxis: {
+                show: false,
+                type: 'value'
+            },
+            series: [{
+                showSymbol: false,
+                data: [],
+                type: 'line',
+                itemStyle: {
+                    normal: {
+                        lineStyle: {
+                            color: '#FF5733',
+                            width:3
+                        }
+                    }
+                },
+                smooth: true
+            }]
+        };
+
+        var cnt = 0; 
+        var upper_cnt = 23; 
+        
+        var interval = setInterval(function() {
+            // console.log(cnt>upper_cnt);
+            if(cnt >= upper_cnt) {
+                clearInterval(interval);
+            }
+            var myData = [];
+            for(var i = -2.0; i <= 2.0; i+= 0.01) {
+                var x = i; 
+                var y = f(x,cnt); 
+                myData.push([x,y])
+            }
+            // console.log(myData);
+            option.series[0].data = myData;
+            // console.log(option)
+            myChart.setOption(option);
+            if(cnt <= upper_cnt) cnt += 1.5;
+        },800);
 </script>
+
+
 </body>
 </html>
